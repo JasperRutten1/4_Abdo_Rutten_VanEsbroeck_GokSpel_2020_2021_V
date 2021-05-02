@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-
 public class GamblerOverviewPane extends GridPane{
 	//private TableView<Speler> table;
 	
