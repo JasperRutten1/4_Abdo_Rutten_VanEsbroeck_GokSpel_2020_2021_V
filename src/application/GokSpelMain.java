@@ -3,8 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.database.SpelersDB;
-import model.saveLoadStrategies.ExcelSaveLoad;
-import model.saveLoadStrategies.TextSaveLoad;
+import model.saveLoadStrategies.SaveLoadEnum;
 import view.AdminView;
 import view.GamblerView;
 
@@ -13,7 +12,7 @@ public class GokSpelMain extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		database = new SpelersDB(new TextSaveLoad());
+		database = new SpelersDB(SaveLoadEnum.SPELER_TEKST);
 		database.load();
 		System.out.println(database.getSpelers());
 		AdminView adminView = new AdminView();

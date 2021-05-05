@@ -1,8 +1,11 @@
 package model.database;
 
 import model.Speler;
+import model.saveLoadStrategies.SaveLoadEnum;
+import model.saveLoadStrategies.SaveLoadFactory;
 import model.saveLoadStrategies.SaveLoadInterface;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,10 +15,12 @@ import java.util.Map;
 public class SpelersDB {
     private Map<String, Speler> spelers;
     private SaveLoadInterface saveLoad;
+    private File file;
 
-    public SpelersDB(SaveLoadInterface saveLoad){
+    public SpelersDB(SaveLoadEnum saveLoadEnum){
         this.spelers = new HashMap<>();
-        this.saveLoad = saveLoad;
+        this.saveLoad = SaveLoadFactory.getInstance(saveLoadEnum);
+        this.file = saveLoadEnum.getFile();
     }
 
     public Map<String, Speler> getSpelers() {
@@ -31,11 +36,11 @@ public class SpelersDB {
         spelers.remove(speler.getGebruiker());
     }
 
-    public void save(){
-        saveLoad.save(this.spelers);
+    public void save(File file){
+        saveLoad.save(this.spelers, file);
     }
 
     public void load(){
-        this.spelers = saveLoad.load();
+        this.spelers = saveLoad.load(file);
     }
 }
