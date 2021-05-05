@@ -1,4 +1,4 @@
-package model.saveLoadStrategies;
+package model.database.saveLoadStrategies;
 
 import java.lang.reflect.InvocationTargetException;
 

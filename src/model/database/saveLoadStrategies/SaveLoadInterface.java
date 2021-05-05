@@ -1,9 +1,8 @@
-package model.saveLoadStrategies;
+package model.database.saveLoadStrategies;
 
 import model.Speler;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 
 public interface SaveLoadInterface {

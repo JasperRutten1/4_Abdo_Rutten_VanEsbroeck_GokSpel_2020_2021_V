@@ -1,4 +1,4 @@
-package model.saveLoadStrategies;
+package model.database.saveLoadStrategies;
 
 import java.io.File;
 import java.io.IOException;

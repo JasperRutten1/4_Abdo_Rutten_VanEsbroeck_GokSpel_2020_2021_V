@@ -1,28 +1,20 @@
-package model.saveLoadStrategies;
+package model.database.saveLoadStrategies;
 
 import model.Speler;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 public class SpelerTekstSaveLoad extends TeksSaveLoadTemplate<String,Speler> implements SaveLoadInterface{
     @Override
     protected Speler generateValue(String[] args) {
-        return null;
+        return new Speler(args[0], args[1], args[2], Double.parseDouble(args[3]));
     }
 
     @Override
     protected String generateKey(Speler value) {
-        return null;
+        return value.getGebruiker();
     }
 
     @Override
     protected String generateDataString(Speler value) {
-        return null;
+        return value.getNaam() + "," + value.getVoornaam() + "," + value.getGebruiker() + "," + value.getSaldo();
     }
 }

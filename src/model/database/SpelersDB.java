@@ -1,9 +1,9 @@
 package model.database;
 
 import model.Speler;
-import model.saveLoadStrategies.SaveLoadEnum;
-import model.saveLoadStrategies.SaveLoadFactory;
-import model.saveLoadStrategies.SaveLoadInterface;
+import model.database.saveLoadStrategies.SaveLoadEnum;
+import model.database.saveLoadStrategies.SaveLoadFactory;
+import model.database.saveLoadStrategies.SaveLoadInterface;
 
 import java.io.File;
 import java.util.HashMap;

@@ -1,6 +1,4 @@
-package model.saveLoadStrategies;
-
-import model.Speler;
+package model.database.saveLoadStrategies;
 
 import java.io.File;
 import java.io.FileWriter;

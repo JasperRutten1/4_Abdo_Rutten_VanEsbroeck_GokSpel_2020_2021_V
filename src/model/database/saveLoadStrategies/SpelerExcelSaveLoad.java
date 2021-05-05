@@ -1,10 +1,9 @@
-package model.saveLoadStrategies;
+package model.database.saveLoadStrategies;
 
 import model.Speler;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class SpelerExcelSaveLoad implements SaveLoadInterface{

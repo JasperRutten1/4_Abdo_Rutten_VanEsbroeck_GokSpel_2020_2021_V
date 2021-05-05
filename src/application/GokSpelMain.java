@@ -3,7 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.database.SpelersDB;
-import model.saveLoadStrategies.SaveLoadEnum;
+import model.database.saveLoadStrategies.SaveLoadEnum;
 import view.AdminView;
 import view.GamblerView;
 
