@@ -3,7 +3,7 @@ package model.database;
 import model.Speler;
 import model.database.saveLoadStrategies.SaveLoadEnum;
 import model.database.saveLoadStrategies.SaveLoadFactory;
-import model.database.saveLoadStrategies.SaveLoadInterface;
+import model.database.saveLoadStrategies.SaveLoadStrategy;
 
 import java.io.File;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class SpelersDB {
     private Map<String, Speler> spelers;
-    private SaveLoadInterface saveLoad;
+    private SaveLoadStrategy saveLoad;
     private File file;
 
     public SpelersDB(SaveLoadEnum saveLoadEnum){

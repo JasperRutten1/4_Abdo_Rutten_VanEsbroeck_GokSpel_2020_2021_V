@@ -8,9 +8,9 @@ public enum SaveLoadEnum {
     SPELER_EXCEL(SpelerExcelSaveLoad.class, new File("src/bestanden/excel/speler.xls"));
 
     private final File file;
-    private final Class<? extends SaveLoadInterface> clazz;
+    private final Class<? extends SaveLoadStrategy> clazz;
 
-    SaveLoadEnum(Class<? extends SaveLoadInterface> clazz, File file){
+    SaveLoadEnum(Class<? extends SaveLoadStrategy> clazz, File file){
         checkFile(file);
         this.clazz = clazz;
         this.file = file;
@@ -20,7 +20,7 @@ public enum SaveLoadEnum {
         return file;
     }
 
-    public Class<? extends SaveLoadInterface> getClazz() {
+    public Class<? extends SaveLoadStrategy> getClazz() {
         return clazz;
     }
 

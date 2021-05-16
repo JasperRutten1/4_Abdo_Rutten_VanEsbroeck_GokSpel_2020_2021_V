@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public abstract class TeksSaveLoadTemplate<K,V> {
+public abstract class TekstSaveLoadTemplate<K,V> {
 
     /*
     load

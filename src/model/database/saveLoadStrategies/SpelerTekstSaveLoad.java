@@ -2,7 +2,7 @@ package model.database.saveLoadStrategies;
 
 import model.Speler;
 
-public class SpelerTekstSaveLoad extends TeksSaveLoadTemplate<String,Speler> implements SaveLoadInterface{
+public class SpelerTekstSaveLoad extends TekstSaveLoadTemplate<String,Speler> implements SaveLoadStrategy {
     @Override
     protected Speler generateValue(String[] args) {
         return new Speler(args[0], args[1], args[2], Double.parseDouble(args[3]));

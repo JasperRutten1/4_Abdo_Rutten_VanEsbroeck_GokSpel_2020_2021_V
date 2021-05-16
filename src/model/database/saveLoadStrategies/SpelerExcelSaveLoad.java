@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SpelerExcelSaveLoad implements SaveLoadInterface{
+public class SpelerExcelSaveLoad implements SaveLoadStrategy {
 
     @Override
     public void save(Map<String, Speler> spelers, File file) {
