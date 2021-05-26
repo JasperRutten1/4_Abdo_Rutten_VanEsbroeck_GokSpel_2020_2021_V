@@ -24,4 +24,6 @@ public class AdminView {
 		stage.sizeToScene();			
 		stage.show();		
 	}
+
+
 }
