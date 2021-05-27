@@ -6,8 +6,6 @@ import model.SpelModel;
 import model.Speler;
 import model.gokStrategy.GokEnum;
 
-import java.util.List;
-
 public class NietIngelogdeState implements SpelState{
     private SpelModel model;
 
@@ -59,7 +57,15 @@ public class NietIngelogdeState implements SpelState{
     }
 
     @Override
-    public void onWerp(List<Integer> worpen) {
+    public void onBevestigGok() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Spel Error");
+        alert.setHeaderText("Je moet eerst een spel beginnen voor je een gok kan bevestigen");
+        alert.showAndWait();
+    }
+
+    @Override
+    public void onWerp() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Spel Error");
         alert.setHeaderText("Je moet eerst een gok strategie kiezen voor je kan beginnen met werpen");

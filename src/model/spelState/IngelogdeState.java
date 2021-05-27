@@ -5,8 +5,6 @@ import javafx.scene.control.TextField;
 import model.SpelModel;
 import model.gokStrategy.GokEnum;
 
-import java.util.List;
-
 public class IngelogdeState implements SpelState{
     private SpelModel model;
 
@@ -45,7 +43,7 @@ public class IngelogdeState implements SpelState{
     public void onStart() {
         if(model.getInzet() > 0){
             model.setSpelState(model.getSpelGestartState());
-            model.setBezig(true);
+            model.setSpelBezig(true);
         }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -64,7 +62,15 @@ public class IngelogdeState implements SpelState{
     }
 
     @Override
-    public void onWerp(List<Integer> worpen) {
+    public void onBevestigGok() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Spel Error");
+        alert.setHeaderText("Je moet eerst een spel beginnen voor je een gok kan bevestigen");
+        alert.showAndWait();
+    }
+
+    @Override
+    public void onWerp() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Spel Error");
         alert.setHeaderText("Je moet eerst een gok strategie kiezen voor je kan beginnen met werpen");

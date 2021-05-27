@@ -1,11 +1,14 @@
 package model;
 
 import javafx.scene.control.TextField;
+import lombok.Getter;
+import lombok.Setter;
 import model.database.SpelersDB;
 import model.gokStrategy.GokStrategy;
 import model.observer.SpelObserver;
 import model.spelState.IngelogdeState;
 import model.spelState.NietIngelogdeState;
+import model.spelState.SpelGestartState;
 import model.spelState.SpelState;
 import model.gokStrategy.GokEnum;
 
@@ -13,93 +16,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpelModel {
-    private SpelersDB spelersDB;
+    @Getter private SpelersDB spelersDB;
     private final List<SpelObserver> observers = new ArrayList<>();
 
-    private Speler speler;
-    private double inzet;
-    private GokStrategy gokStrategy;
-    private boolean isBezig;
+    @Getter private Speler speler;
+    @Getter private double inzet;
+    @Getter private GokEnum gokEnum;
+    @Getter private GokStrategy gokStrategy;
+    @Getter boolean spelBezig;
+    @Getter boolean stratGekozen;
 
+    @Getter @Setter
     private SpelState spelState, nietIngelogdState, ingelogdState,
             spelGestartState, gokGekozenState, worp1State,
             worp2State, worp3State, worp4State;
 
-    private List<Integer> worpen;
+    @Getter private List<Integer> worpen;
 
     public SpelModel(SpelersDB spelersDB){
         this.spelersDB = spelersDB;
         this.worpen = new ArrayList<>();
-        this.isBezig = false;
+        this.spelBezig = false;
 
         this.nietIngelogdState = new NietIngelogdeState(this);
         this.ingelogdState = new IngelogdeState(this);
+        this.spelGestartState = new SpelGestartState(this);
 
 
         this.spelState = this.nietIngelogdState;
-    }
-
-
-    /*
-    --------------------------------------------------
-    getters
-    --------------------------------------------------
-     */
-
-    public SpelState getGokGekozenState() {
-        return gokGekozenState;
-    }
-
-    public SpelState getIngelogdState() {
-        return ingelogdState;
-    }
-
-    public SpelState getNietIngelogdState() {
-        return nietIngelogdState;
-    }
-
-    public SpelState getSpelGestartState() {
-        return spelGestartState;
-    }
-
-    public SpelState getWorp1State() {
-        return worp1State;
-    }
-
-    public SpelState getWorp2State() {
-        return worp2State;
-    }
-
-    public SpelState getWorp3State() {
-        return worp3State;
-    }
-
-    public SpelState getWorp4State() {
-        return worp4State;
-    }
-
-    public SpelState getSpelState() {
-        return spelState;
-    }
-
-    public SpelersDB getSpelersDB() {
-        return spelersDB;
-    }
-
-    public List<Integer> getWorpen() {
-        return worpen;
-    }
-
-    public Speler getSpeler() {
-        return speler;
-    }
-
-    public double getInzet() {
-        return inzet;
-    }
-
-    public boolean isBezig() {
-        return isBezig;
     }
 
     /*
@@ -107,42 +51,6 @@ public class SpelModel {
     setters
     --------------------------------------------------
      */
-
-    public void setSpelState(SpelState spelState) {
-        this.spelState = spelState;
-    }
-
-    public void setNietIngelogdState(SpelState nietIngelogdState) {
-        this.nietIngelogdState = nietIngelogdState;
-    }
-
-    public void setIngelogdState(SpelState ingelogdState) {
-        this.ingelogdState = ingelogdState;
-    }
-
-    public void setGokGekozenState(SpelState gokGekozenState) {
-        this.gokGekozenState = gokGekozenState;
-    }
-
-    public void setSpelGestartState(SpelState spelGestartState) {
-        this.spelGestartState = spelGestartState;
-    }
-
-    public void setWorp1State(SpelState worp1State) {
-        this.worp1State = worp1State;
-    }
-
-    public void setWorp2State(SpelState worp2State) {
-        this.worp2State = worp2State;
-    }
-
-    public void setWorp3State(SpelState worp3State) {
-        this.worp3State = worp3State;
-    }
-
-    public void setWorp4State(SpelState worp4State) {
-        this.worp4State = worp4State;
-    }
 
     public void setSpeler(Speler speler) {
         this.speler = speler;
@@ -154,8 +62,22 @@ public class SpelModel {
         notifyObservers();
     }
 
-    public void setBezig(boolean bezig) {
-        isBezig = bezig;
+    public void setSpelBezig(boolean spelBezig) {
+        this.spelBezig = spelBezig;
+        notifyObservers();
+    }
+
+    public void setGokEnum(GokEnum gokEnum) {
+        this.gokEnum = gokEnum;
+    }
+
+    public void setGokStrategy(GokStrategy gokStrategy) {
+        this.gokStrategy = gokStrategy;
+        notifyObservers();
+    }
+
+    public void setStratGekozen(boolean stratGekozen) {
+        this.stratGekozen = stratGekozen;
         notifyObservers();
     }
 
@@ -197,6 +119,6 @@ public class SpelModel {
     }
 
     public void werp(List<Integer> worpen){
-        getSpelState().onWerp(worpen);
+        getSpelState().onWerp();
     }
 }
