@@ -1,15 +1,20 @@
 package view;
 
+import controller.AdminViewController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;	
+import javafx.stage.StageStyle;
+import view.panels.AdminMainPane;
 
 public class AdminView {
-	private Stage stage = new Stage();		
+	private Stage stage = new Stage();
+	private AdminViewController controller;
 		
-	public AdminView(){			
+	public AdminView(AdminViewController controller){
+		this.controller = controller;
+		controller.setAdminView(this);
 		stage.setTitle("ADMIN VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(630);

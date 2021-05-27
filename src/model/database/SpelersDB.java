@@ -19,9 +19,8 @@ public class SpelersDB {
     private SaveLoadStrategy saveLoad;
     private File file;
 
-    private Collection<spelObserver> observers = new ArrayList<>();
 
-    public SpelersDB(SaveLoadEnum saveLoadEnum){
+    public SpelersDB(SaveLoadEnum saveLoadEnum) {
         this.spelers = new HashMap<>();
         this.saveLoad = SaveLoadFactory.getInstance(saveLoadEnum);
         this.file = saveLoadEnum.getFile();
@@ -31,29 +30,21 @@ public class SpelersDB {
         return spelers;
     }
 
-    public void addSpeler(Speler speler){
-        if(spelers.containsKey(speler.getGebruiker())) throw new IllegalArgumentException("gebruikers naam moet uniek zijn");
+    public void addSpeler(Speler speler) {
+        if (spelers.containsKey(speler.getGebruiker()))
+            throw new IllegalArgumentException("gebruikers naam moet uniek zijn");
         spelers.put(speler.getGebruiker(), speler);
     }
 
-    public void removeSpeler(Speler speler){
+    public void removeSpeler(Speler speler) {
         spelers.remove(speler.getGebruiker());
     }
 
-    public void save(File file){
+    public void save(File file) {
         saveLoad.save(this.spelers, file);
     }
 
-    public void load(){
+    public void load() {
         this.spelers = saveLoad.load(file);
     }
-
-    public void addObserver(spelObserver obs){
-        observers.add(obs);
-    }
-
-    public void notifyObservers(){
-        for (spelObserver obs: observers)
-             obs.update();
-        }
-    }
+}

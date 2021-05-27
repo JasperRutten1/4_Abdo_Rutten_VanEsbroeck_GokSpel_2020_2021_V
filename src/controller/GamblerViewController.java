@@ -1,31 +1,41 @@
 package controller;
 
-import model.database.SpelersDB;
-import model.observer.spelObserver;
-import view.panels.*;
+import model.observer.SpelObserver;
+import view.GamblerView;
 import model.*;
-import java.util.Map;
 
-public class GamblerViewController implements spelObserver {
+public class GamblerViewController implements SpelObserver {
+    private SpelModel model;
 
-    private GamblerOverviewPane gamblerOverviewPane;
-    private SpelersDB spelersDB;
+    private GamblerView gamblerView;
 
-    public GamblerViewController(SpelersDB spelersDB){
-        this.spelersDB = spelersDB;
-        spelersDB.addObserver(this);
-        gamblerOverviewPane = new GamblerOverviewPane(this);
+    public GamblerViewController(SpelModel model){
+        this.model = model;
+        model.addObserver(this);
     }
 
+    /*
+    --------------------------------------------------
+    getters
+    --------------------------------------------------
+     */
 
-
-    public Map<String, Speler> getSpelers(){
-        return spelersDB.getSpelers();
+    public SpelModel getModel() {
+        return model;
     }
 
+    /*
+    --------------------------------------------------
+    setters
+    --------------------------------------------------
+     */
+
+    public void setGamblerView(GamblerView gamblerView) {
+        this.gamblerView = gamblerView;
+    }
 
     @Override
-    public void update() {
-        gamblerOverviewPane.refresh();
+    public void update(SpelModel model) {
+        gamblerView.refresh(model);
     }
 }

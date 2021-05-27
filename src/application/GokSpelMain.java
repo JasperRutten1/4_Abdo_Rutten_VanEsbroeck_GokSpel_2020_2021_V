@@ -1,7 +1,10 @@
 package application;
 	
+import controller.AdminViewController;
+import controller.GamblerViewController;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.SpelModel;
 import model.database.SpelersDB;
 import model.database.saveLoadStrategies.SaveLoadEnum;
 import view.AdminView;
@@ -12,11 +15,19 @@ public class GokSpelMain extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		primaryStage.setTitle("Gokspel");
 		database = new SpelersDB(SaveLoadEnum.SPELER_TEKST);
 		database.load();
+
 		System.out.println(database.getSpelers());
-		AdminView adminView = new AdminView();
-		GamblerView gamblerView = new GamblerView();
+
+		SpelModel spelModel = new SpelModel(database);
+
+		GamblerViewController gamblerViewController = new GamblerViewController(spelModel);
+		GamblerView gamblerView = new GamblerView(gamblerViewController);
+
+		AdminViewController adminViewController = new AdminViewController(spelModel);
+		AdminView adminView = new AdminView(adminViewController);
 	}
 	
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package model.gokSpel.spelState;
+package model.spelState;
 
 public class GokGekozeState {
 }

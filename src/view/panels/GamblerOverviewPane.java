@@ -1,7 +1,7 @@
 package view.panels;
 
 
-import application.GokSpelMain;
+import controller.AdminViewController;
 import controller.GamblerViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,25 +11,23 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import model.*;
 import model.database.SpelersDB;
-import controller.*;
 
 public class GamblerOverviewPane extends GridPane{
 	private TableView<Speler> table;
 	private ObservableList<Speler> spelers;
-	private GamblerViewController gamblerViewController;
+	private AdminViewController controller;
 	
 	
-	public GamblerOverviewPane(GamblerViewController gamblerViewController) {
-		this.gamblerViewController = gamblerViewController;
+	public GamblerOverviewPane(AdminViewController controller) {
+		this.controller = controller;
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);        
 		this.add(new Label("Spelers:"), 0, 0, 1, 1);
 
-		table = new TableView<Speler>();
+		table = new TableView<>();
 		refresh();
 		//gebruiks kolom
 		TableColumn<Speler, String> gebruikerCol = new TableColumn<>("Gebruikers Naam");
@@ -55,9 +53,8 @@ public class GamblerOverviewPane extends GridPane{
 
 	}
 
-
-	public void refresh(){
-		spelers =  FXCollections.observableArrayList(gamblerViewController.getSpelers());
+	public void refresh() {
+		spelers =  FXCollections.observableArrayList(controller.getModel().getSpelersDB().getSpelers().values());
 		table.setItems(spelers);
 		table.refresh();
 	}
