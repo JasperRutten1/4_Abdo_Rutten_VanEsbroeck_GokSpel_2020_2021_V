@@ -1,10 +1,10 @@
 package model.gokStrategy;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class EvenOgen implements GokStrategy{
     @Override
-    public boolean kanWinnen(ArrayList<Integer> dobbelstenen) {
+    public boolean kanWinnen(List<Integer> dobbelstenen) {
        for(Integer x : dobbelstenen){
            if(x != 0){
                if (x % 2 != 0){

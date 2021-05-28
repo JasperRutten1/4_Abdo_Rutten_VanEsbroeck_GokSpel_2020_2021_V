@@ -5,43 +5,47 @@ import lombok.Getter;
 import lombok.Setter;
 import model.database.SpelersDB;
 import model.gokStrategy.GokStrategy;
+import model.observer.SpelEvent;
 import model.observer.SpelObserver;
-import model.spelState.IngelogdeState;
-import model.spelState.NietIngelogdeState;
-import model.spelState.SpelGestartState;
-import model.spelState.SpelState;
+import model.spelState.*;
 import model.gokStrategy.GokEnum;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SpelModel {
     @Getter private SpelersDB spelersDB;
-    private final List<SpelObserver> observers = new ArrayList<>();
+    private final Map<SpelEvent, List<SpelObserver>> observers;
 
     @Getter private Speler speler;
     @Getter private double inzet;
     @Getter private GokEnum gokEnum;
     @Getter private GokStrategy gokStrategy;
-    @Getter boolean spelBezig;
-    @Getter boolean stratGekozen;
+    @Getter boolean spelBezig, stratGekozen, spelGedaan;
 
     @Getter @Setter
     private SpelState spelState, nietIngelogdState, ingelogdState,
-            spelGestartState, gokGekozenState, worp1State,
-            worp2State, worp3State, worp4State;
+            spelGestartState, werpVast,
+            werpVerander, eindeSpelState;
 
     @Getter private List<Integer> worpen;
+    @Getter @Setter double origineelInzet;
 
     public SpelModel(SpelersDB spelersDB){
         this.spelersDB = spelersDB;
         this.worpen = new ArrayList<>();
         this.spelBezig = false;
 
+        observers = new HashMap<>();
+        for(SpelEvent event : SpelEvent.values()){
+            observers.put(event, new ArrayList<>());
+        }
+
         this.nietIngelogdState = new NietIngelogdeState(this);
         this.ingelogdState = new IngelogdeState(this);
         this.spelGestartState = new SpelGestartState(this);
-
+        this.werpVast = new WerpStateVastSaldo(this);
+        this.werpVerander = new WerpStateSaldoVeranderbaar(this);
+        this.eindeSpelState = new EindeSpelState(this);
 
         this.spelState = this.nietIngelogdState;
     }
@@ -54,17 +58,17 @@ public class SpelModel {
 
     public void setSpeler(Speler speler) {
         this.speler = speler;
-        notifyObservers();
+        notifyObservers(SpelEvent.LOGIN);
     }
 
     public void setInzet(double inzet) {
         this.inzet = inzet;
-        notifyObservers();
+        notifyObservers(SpelEvent.INZET_CHANGE);
     }
 
     public void setSpelBezig(boolean spelBezig) {
         this.spelBezig = spelBezig;
-        notifyObservers();
+        notifyObservers(SpelEvent.START);
     }
 
     public void setGokEnum(GokEnum gokEnum) {
@@ -73,12 +77,17 @@ public class SpelModel {
 
     public void setGokStrategy(GokStrategy gokStrategy) {
         this.gokStrategy = gokStrategy;
-        notifyObservers();
+        notifyObservers(SpelEvent.SELECT_GOK);
     }
 
     public void setStratGekozen(boolean stratGekozen) {
         this.stratGekozen = stratGekozen;
-        notifyObservers();
+        notifyObservers(SpelEvent.CONFIRM_GOK);
+    }
+
+    public void setSpelGedaan(boolean spelGedaan) {
+        this.spelGedaan = spelGedaan;
+        notifyObservers(SpelEvent.SPEL_GEDAAN);
     }
 
     /*
@@ -87,17 +96,16 @@ public class SpelModel {
     --------------------------------------------------
      */
 
-    public void addObserver(SpelObserver obs){
-        observers.add(obs);
+    public void addObserver(SpelEvent event, SpelObserver obs){
+        observers.get(event).add(obs);
     }
 
-    public void removeObserver(SpelObserver obs){
-        observers.remove(obs);
+    public void removeObserver(SpelEvent event, SpelObserver obs){
+        observers.get(event).remove(obs);
     }
 
-    public void notifyObservers(){
-        for (SpelObserver obs: observers)
-            obs.update(this);
+    public void notifyObservers(SpelEvent event){
+        for (SpelObserver obs: observers.get(event)) obs.update(this);
     }
 
     /*
@@ -121,4 +129,17 @@ public class SpelModel {
     public void werp(List<Integer> worpen){
         getSpelState().onWerp();
     }
+
+    /*
+    --------------------------------------------------
+    util methods
+    --------------------------------------------------
+     */
+
+    public void gooiVolgendeDobbelsteen(){
+        worpen.add(new Random().nextInt(6) + 1);
+        notifyObservers(SpelEvent.WERP);
+    }
+
+
 }

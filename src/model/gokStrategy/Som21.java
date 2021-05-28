@@ -1,26 +1,20 @@
 package model.gokStrategy;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Som21 implements GokStrategy{
+    final static int NBR_WORPEN = 4;
+
     @Override
-    public boolean kanWinnen(ArrayList<Integer> dobbelstenen) {
+    public boolean kanWinnen(List<Integer> dobbelstenen) {
         int sum = 0;
-        int worpenTeGaan = 0;
-        for(Integer x : dobbelstenen){
-            if( x ==0 ){
-                worpenTeGaan++;
-            }
-        }
-        for(Integer x : dobbelstenen){
-            sum =sum + x;
-            if(sum+worpenTeGaan>21){
-                return false;
-            }
-            if(sum + worpenTeGaan*6 <21){
-                return false;
-            }
-        }
+        for(Integer x : dobbelstenen) sum += x;
+
+        int max_pot_sum = sum + (NBR_WORPEN - dobbelstenen.size()) * 6;
+        int min_pot_sum = sum + (NBR_WORPEN - dobbelstenen.size()) * 1;
+
+        if(max_pot_sum < 21) return false;
+        if(min_pot_sum > 21) return false;
         return true;
     }
 }

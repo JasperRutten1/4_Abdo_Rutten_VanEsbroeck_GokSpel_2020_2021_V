@@ -1,7 +1,7 @@
 package model.gokStrategy;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface GokStrategy {
-    boolean kanWinnen(ArrayList<Integer> dobbelstenen);
+    boolean kanWinnen(List<Integer> dobbelstenen);
 }

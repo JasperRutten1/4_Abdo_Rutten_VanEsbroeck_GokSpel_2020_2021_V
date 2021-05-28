@@ -5,9 +5,9 @@ import javafx.scene.control.TextField;
 import model.SpelModel;
 import model.gokStrategy.GokEnum;
 
-public class GokGekozeState implements SpelState{
+public class WerpStateVastSaldo implements SpelState{
     private SpelModel model;
-    public GokGekozeState(SpelModel model){this.model = model;}
+    public WerpStateVastSaldo(SpelModel model){this.model = model;}
 
     @Override
     public void onLogin(TextField naamFld) {
@@ -51,6 +51,15 @@ public class GokGekozeState implements SpelState{
 
     @Override
     public void onWerp() {
-
+        model.gooiVolgendeDobbelsteen();
+        if(model.getGokStrategy().kanWinnen(model.getWorpen())){
+            System.out.println("kan winnen");
+            if(model.getWorpen().size() == 2) model.setSpelState(model.getWerpVerander());
+            else model.setSpelState(model.getWerpVast());
+        }
+        else{
+            model.setSpelGedaan(true);
+            model.setSpelState(model.getEindeSpelState());
+        }
     }
 }

@@ -49,10 +49,6 @@ public class GamblerOverviewPane extends GridPane{
 		this.getChildren().addAll(table);
 	}
 
-	public GamblerOverviewPane() {
-
-	}
-
 	public void refresh() {
 		spelers =  FXCollections.observableArrayList(controller.getModel().getSpelersDB().getSpelers().values());
 		table.setItems(spelers);

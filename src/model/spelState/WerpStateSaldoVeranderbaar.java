@@ -5,12 +5,9 @@ import javafx.scene.control.TextField;
 import model.SpelModel;
 import model.gokStrategy.GokEnum;
 
-public class IngelogdeState implements SpelState{
+public class WerpStateSaldoVeranderbaar implements SpelState {
     private SpelModel model;
-
-    public IngelogdeState(SpelModel model){
-        this.model = model;
-    }
+    public WerpStateSaldoVeranderbaar(SpelModel model){this.model = model;}
 
     @Override
     public void onLogin(TextField naamFld) {
@@ -34,47 +31,57 @@ public class IngelogdeState implements SpelState{
             alert.setHeaderText("Je kan niet meer inzetten dan je hebt.");
             alert.showAndWait();
         }
+        else if(inzet < model.getOrigineelInzet()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Inzet Error");
+            alert.setHeaderText("Je kan je inzet niet verlagen.");
+            alert.showAndWait();
+        }
+        else if(inzet > model.getOrigineelInzet() + 10){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Inzet Error");
+            alert.setHeaderText("Je kan je inzet enkel verhogen met 10");
+            alert.showAndWait();
+        }
         else{
             model.setInzet(inzet);
+            model.setSpelState(model.getWerpVast());
         }
     }
 
     @Override
     public void onStart() {
-        if(model.getInzet() > 0){
-            model.setSpelState(model.getSpelGestartState());
-            model.setSpelBezig(true);
-            model.setOrigineelInzet(model.getInzet());
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Inzet Error");
-            alert.setHeaderText("Je moet een saldo inzetten voor je kan beginnen");
-            alert.showAndWait();
-        }
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Start Error");
+        alert.setHeaderText("Je bent al gestart.");
+        alert.showAndWait();
     }
 
     @Override
     public void onKiesGok(GokEnum gok) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Spel Error");
-        alert.setHeaderText("Je moet eerst een spel beginnen voor je een gok kan kiezen");
+        alert.setTitle("Gok Error");
+        alert.setHeaderText("Strategie kan niet meer worden geselecteerd");
         alert.showAndWait();
     }
 
     @Override
     public void onBevestigGok() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Spel Error");
-        alert.setHeaderText("Je moet eerst een spel beginnen voor je een gok kan bevestigen");
+        alert.setTitle("Gok Error");
+        alert.setHeaderText("Strategie kan niet meer worden vastgelegd");
         alert.showAndWait();
     }
 
     @Override
     public void onWerp() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Spel Error");
-        alert.setHeaderText("Je moet eerst een gok strategie kiezen voor je kan beginnen met werpen");
-        alert.showAndWait();
+        model.gooiVolgendeDobbelsteen();
+        if(model.getGokStrategy().kanWinnen(model.getWorpen())){
+            model.setSpelState(model.getWerpVast());
+        }
+        else{
+            model.setSpelGedaan(true);
+            model.setSpelState(model.getEindeSpelState());
+        }
     }
 }

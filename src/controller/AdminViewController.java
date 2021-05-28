@@ -14,7 +14,6 @@ public class AdminViewController implements SpelObserver {
 
     public AdminViewController(SpelModel model){
         this.model = model;
-        model.addObserver(this);
     }
 
     /*

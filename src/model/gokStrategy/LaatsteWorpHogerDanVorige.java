@@ -1,10 +1,10 @@
 package model.gokStrategy;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class LaatsteWorpHogerDanVorige implements GokStrategy{
     @Override
-    public boolean kanWinnen(ArrayList<Integer> dobbelstenen) {
+    public boolean kanWinnen(List<Integer> dobbelstenen) {
         boolean uit = true;
         int x = 0;
         for(Integer y : dobbelstenen){

@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.SpelModel;
@@ -77,11 +78,11 @@ public class GamblerView {
 	private Button werpBtn;
 	private HBox werpBox;
 	private VBox worpenBox;
-	private VBox commentBox;
+	private VBox resultBox;
 		
 	public GamblerView(GamblerViewController controller){
 		this.controller = controller;
-		controller.setGamblerView(this);
+		controller.setView(this);
 		stage.setTitle("GAMBLER VIEW");
 
 
@@ -124,6 +125,7 @@ public class GamblerView {
 			model.getSpelState().onLogin(naamFld);
 		});
 		saldoLbl = new Label();
+		saldoLbl.setVisible(false);
 		saldoLbl.setPadding(new Insets(10,0,0,10));
 		naamBox.getChildren().addAll(naamLbl, naamFld, saldoLbl);
 
@@ -202,41 +204,58 @@ public class GamblerView {
 		//werp knop
 		werpBtn = new Button("Werp dobbesteen");
 		werpBtn.setOnAction(e -> {
+			System.out.println(model.getSpelState());
 			model.getSpelState().onWerp();
 		});
 
 		werpBox = new HBox(10);
 		worpenBox = new VBox(10);
-		commentBox = new VBox(10);
+		resultBox = new VBox(10);
 
-		werpBox.getChildren().addAll(worpenBox, commentBox);
+		werpBox.getChildren().addAll(worpenBox, resultBox);
 		werpPane.getChildren().addAll(werpBtn, werpBox);
 	}
 
-	public void updateWorpenBox(SpelModel model){
-		werpBox.getChildren().clear();
+	public void refreshWorpenBox(SpelModel model){
+		worpenBox.getChildren().clear();
 		for(int i = 0 ; i < model.getWorpen().size() && i < 4 ; i++){
-			werpBox.getChildren().add(new Label("worp " + i + ": " + model.getWorpen().get(i)));
+			worpenBox.getChildren().add(new Label("worp " + (i + 1) + ": " + model.getWorpen().get(i)));
 		}
 	}
 
-	public void refresh(SpelModel model){
-		Speler speler = model.getSpeler();
+	public void refreshResult(String bericht, Color kleur, SpelModel model){
+		resultBox.getChildren().clear();
+		Label berichtLbl = new Label(bericht);
+		berichtLbl.setTextFill(kleur);
+		Label overschotLbl = new Label("Je nieuw saldo bedraagt " + model.getSpeler().getSaldo() + " €");
+		overschotLbl.setTextFill(kleur);
+		resultBox.getChildren().addAll(berichtLbl, overschotLbl);
+	}
 
-		//login pane
-		naamFld.setDisable(speler != null);
-		saldoLbl.setText(speler == null ? "" : "Je saldo is " + speler.getSaldo() + ".");
-		inzetFld.setDisable(model.isSpelBezig() && !(model.getWorpen().size() == 2));
-		startBtn.setDisable(model.isSpelBezig());
+	public void refreshLoginFld(Speler speler, boolean disabled){
+		naamFld.setDisable(disabled);
+		naamFld.setText(speler.getGebruiker());
+	}
 
-		//gok strat pane
+	public void refreshInzetFld(double inzet, boolean disablede){
+		inzetFld.setText(inzet + "");
+		inzetFld.setDisable(disablede);
+	}
+
+	public void refreshSaldoLbl(double saldo, boolean visible){
+		saldoLbl.setVisible(visible);
+		saldoLbl.setText("Je saldo is " + saldo + ".");
+	}
+
+	public void refreshStartBtn(boolean disabled){
+		startBtn.setDisable(disabled);
+	}
+
+	public void refreshGokStrats(SpelModel model, boolean kanStatKiezen){
 		for(RadioButton radioButton : gokStratRdbs){
-			radioButton.setDisable(!model.isSpelBezig() || model.isStratGekozen());
+			radioButton.setDisable(!kanStatKiezen);
 		}
-		gokBevestigBtn.setDisable(!model.isSpelBezig() || model.isStratGekozen());
-
-		//worpen pane
-		updateWorpenBox(model);
+		gokBevestigBtn.setDisable(!kanStatKiezen);
 	}
 
 
