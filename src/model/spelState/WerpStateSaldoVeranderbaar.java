@@ -80,7 +80,7 @@ public class WerpStateSaldoVeranderbaar implements SpelState {
             model.setSpelState(model.getWerpVast());
         }
         else{
-            model.setSpelGedaan(true);
+            model.eindSpel();
             model.setSpelState(model.getEindeSpelState());
         }
     }

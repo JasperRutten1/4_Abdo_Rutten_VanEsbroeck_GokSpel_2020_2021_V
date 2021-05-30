@@ -40,6 +40,7 @@ public class SpelGestartState implements SpelState{
     @Override
     public void onKiesGok(GokEnum gok) {
         System.out.println(gok);
+        model.setGokEnum(gok);
         model.setGokStrategy(GokFactory.getInstance(gok));
     }
 

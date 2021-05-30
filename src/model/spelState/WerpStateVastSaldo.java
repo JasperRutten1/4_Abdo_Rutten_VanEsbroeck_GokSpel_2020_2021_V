@@ -58,7 +58,7 @@ public class WerpStateVastSaldo implements SpelState{
             else model.setSpelState(model.getWerpVast());
         }
         else{
-            model.setSpelGedaan(true);
+            model.eindSpel();
             model.setSpelState(model.getEindeSpelState());
         }
     }

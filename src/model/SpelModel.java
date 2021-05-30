@@ -9,9 +9,13 @@ import model.observer.SpelEvent;
 import model.observer.SpelObserver;
 import model.spelState.*;
 import model.gokStrategy.GokEnum;
+import model.statistics.GokStatContainer;
 
 import java.util.*;
 
+/**
+ * @author iedereen
+ */
 public class SpelModel {
     @Getter private SpelersDB spelersDB;
     private final Map<SpelEvent, List<SpelObserver>> observers;
@@ -28,12 +32,13 @@ public class SpelModel {
             werpVerander, eindeSpelState;
 
     @Getter private List<Integer> worpen;
-    @Getter @Setter double origineelInzet;
+    @Getter @Setter private double origineelInzet;
+    @Getter private int gameCounter;
 
     public SpelModel(SpelersDB spelersDB){
         this.spelersDB = spelersDB;
         this.worpen = new ArrayList<>();
-        this.spelBezig = false;
+        this.gameCounter = 1;
 
         observers = new HashMap<>();
         for(SpelEvent event : SpelEvent.values()){
@@ -139,6 +144,34 @@ public class SpelModel {
     public void gooiVolgendeDobbelsteen(){
         worpen.add(new Random().nextInt(6) + 1);
         notifyObservers(SpelEvent.WERP);
+    }
+
+    public void eindSpel(){
+        this.spelGedaan = true;
+        if(gokStrategy.kanWinnen(this.worpen)){
+            speler.setSaldo(speler.getSaldo() + (inzet * gokEnum.getWinstfactor()));
+        }
+        else{
+            speler.setSaldo(speler.getSaldo() - inzet);
+        }
+        notifyObservers(SpelEvent.SPEL_GEDAAN);
+    }
+
+    public void restart(){
+        this.gokEnum = null;
+        this.speler = null;
+        this.inzet = 0;
+        this.origineelInzet = 0;
+        this.gokStrategy = null;
+        this.spelBezig = false;
+        this.spelGedaan = false;
+        this.stratGekozen = false;
+        this.worpen = new ArrayList<>();
+        
+        this.gameCounter++;
+
+        this.spelState = this.nietIngelogdState;
+        notifyObservers(SpelEvent.RESTART);
     }
 
 

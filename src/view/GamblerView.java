@@ -198,7 +198,7 @@ public class GamblerView {
 
 	public void genereerWerpPane(SpelModel model){
 		werpPane = new VBox(10);
-		werpPane.setLayoutY(300);
+		werpPane.setLayoutY(320);
 		werpPane.setLayoutX(20);
 
 		//werp knop
@@ -210,7 +210,10 @@ public class GamblerView {
 
 		werpBox = new HBox(10);
 		worpenBox = new VBox(10);
-		resultBox = new VBox(10);
+		worpenBox.setMinWidth(200);
+		resultBox = new VBox(20);
+		resultBox.setVisible(false);
+		resultBox.setLayoutX(300);
 
 		werpBox.getChildren().addAll(worpenBox, resultBox);
 		werpPane.getChildren().addAll(werpBtn, werpBox);
@@ -224,6 +227,7 @@ public class GamblerView {
 	}
 
 	public void refreshResult(String bericht, Color kleur, SpelModel model){
+		resultBox.setVisible(true);
 		resultBox.getChildren().clear();
 		Label berichtLbl = new Label(bericht);
 		berichtLbl.setTextFill(kleur);
@@ -232,9 +236,13 @@ public class GamblerView {
 		resultBox.getChildren().addAll(berichtLbl, overschotLbl);
 	}
 
-	public void refreshLoginFld(Speler speler, boolean disabled){
+	public void hideResult(){
+		resultBox.setVisible(false);
+	}
+
+	public void refreshLoginFld(String naam, boolean disabled){
 		naamFld.setDisable(disabled);
-		naamFld.setText(speler.getGebruiker());
+		naamFld.setText(naam);
 	}
 
 	public void refreshInzetFld(double inzet, boolean disablede){
@@ -251,12 +259,10 @@ public class GamblerView {
 		startBtn.setDisable(disabled);
 	}
 
-	public void refreshGokStrats(SpelModel model, boolean kanStatKiezen){
+	public void refreshGokStrats(boolean kanStatKiezen){
 		for(RadioButton radioButton : gokStratRdbs){
 			radioButton.setDisable(!kanStatKiezen);
 		}
 		gokBevestigBtn.setDisable(!kanStatKiezen);
 	}
-
-
 }
