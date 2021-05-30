@@ -191,6 +191,10 @@ public class GamblerView {
 
 		gokBevestigBtn = new Button("Bevestig keuze");
 		gokBevestigBtn.setOnAction(e -> {
+			for(RadioButton radioButton : gokStratRdbs){
+				radioButton.setSelected(false);
+			}
+
 			model.getSpelState().onBevestigGok();
 		});
 		gokPane.getChildren().add(gokBevestigBtn);

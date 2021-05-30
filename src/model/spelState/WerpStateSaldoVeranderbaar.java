@@ -19,10 +19,20 @@ public class WerpStateSaldoVeranderbaar implements SpelState {
 
     @Override
     public void onSaldoVerander(double inzet) {
+
+        String inzetTxt = Double.toString(Math.abs(inzet));
+        int integerPlaces = inzetTxt.indexOf('.');
+        int decimalPlaces = inzetTxt.length() - integerPlaces - 1;
         if(inzet <= 0.0){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Inzet Error");
             alert.setHeaderText("Je moet een strikt positief getal geven.");
+            alert.showAndWait();
+        }
+        else if(decimalPlaces>2){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Inzet Error");
+            alert.setHeaderText("Je moet een eurowaarde ingeven met MAX 2 na de komma");
             alert.showAndWait();
         }
         else if(inzet > model.getSpeler().getSaldo()){

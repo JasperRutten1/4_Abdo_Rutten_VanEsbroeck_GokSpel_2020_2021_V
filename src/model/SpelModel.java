@@ -11,6 +11,8 @@ import model.spelState.*;
 import model.gokStrategy.GokEnum;
 import model.statistics.GokStatContainer;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.*;
 
 /**
@@ -148,11 +150,24 @@ public class SpelModel {
 
     public void eindSpel(){
         this.spelGedaan = true;
+
+        //om afrondigsfouten te vermijden
+        BigDecimal bdInzet = new BigDecimal(inzet, MathContext.DECIMAL64);
+        BigDecimal bdSpelerSaldo = new BigDecimal(speler.getSaldo(), MathContext.DECIMAL64);
+        BigDecimal bdGokEnumFactor = new BigDecimal(gokEnum.getWinstfactor(), MathContext.DECIMAL64);
+        BigDecimal total;
+        double doubleTotal;
+
+
         if(gokStrategy.kanWinnen(this.worpen)){
-            speler.setSaldo(speler.getSaldo() + (inzet * gokEnum.getWinstfactor()));
+            total = bdSpelerSaldo.add(bdInzet.multiply(bdGokEnumFactor));
+            doubleTotal = total.doubleValue();
+            speler.setSaldo(doubleTotal);
         }
         else{
-            speler.setSaldo(speler.getSaldo() - inzet);
+            total = bdSpelerSaldo.subtract(bdInzet);
+            doubleTotal = total.doubleValue();
+            speler.setSaldo(doubleTotal);
         }
         notifyObservers(SpelEvent.SPEL_GEDAAN);
     }
