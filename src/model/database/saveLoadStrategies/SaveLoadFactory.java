@@ -2,6 +2,9 @@ package model.database.saveLoadStrategies;
 
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * @author iedereen
+ */
 public class SaveLoadFactory {
     public static SaveLoadStrategy getInstance(SaveLoadEnum saveLoadEnum){
         try {

@@ -1,6 +1,7 @@
 package controller.adminPaneControllers;
 
 import model.SpelModel;
+import model.database.SettingsDB;
 import model.gokStrategy.GokEnum;
 import model.observer.SpelEvent;
 import model.statistics.GokStatContainer;
@@ -32,7 +33,7 @@ public class StatisticsController {
             gokStatistic.addTotalInzet(m.getInzet());
             if(m.getGokStrategy().kanWinnen(m.getWorpen())){
                 gokStatistic.addWon();
-                gokStatistic.addTotalWinst(m.getInzet() * gokEnum.getWinstfactor());
+                gokStatistic.addTotalWinst(m.getInzet() * SettingsDB.getInstance().getWinstFactors().get(gokEnum));
             }
             view.refresh();
         });

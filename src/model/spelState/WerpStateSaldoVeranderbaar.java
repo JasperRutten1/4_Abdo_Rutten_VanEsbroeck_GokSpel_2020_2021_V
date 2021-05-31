@@ -5,6 +5,9 @@ import javafx.scene.control.TextField;
 import model.SpelModel;
 import model.gokStrategy.GokEnum;
 
+/**
+ * @author iedereen
+ */
 public class WerpStateSaldoVeranderbaar implements SpelState {
     private SpelModel model;
     public WerpStateSaldoVeranderbaar(SpelModel model){this.model = model;}

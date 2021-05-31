@@ -1,5 +1,8 @@
 package model.observer;
 
+/**
+ * @author Jowan
+ */
 public enum SpelEvent {
     LOGIN(),
     INZET_CHANGE(),
@@ -8,5 +11,6 @@ public enum SpelEvent {
     CONFIRM_GOK(),
     WERP(),
     SPEL_GEDAAN(),
-    RESTART();
+    RESTART(),
+    SETTING_UPDATE();
 }

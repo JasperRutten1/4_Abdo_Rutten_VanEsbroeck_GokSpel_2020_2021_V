@@ -6,19 +6,20 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.SpelModel;
-import model.Speler;
+import model.database.SettingsDB;
 import model.gokStrategy.GokEnum;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Iedereen
+ */
 public class GamblerView {
 	private Stage stage = new Stage();
 	private GamblerViewController controller;
@@ -113,7 +114,14 @@ public class GamblerView {
 
 	private void genereerLoginPane(SpelModel model){
 		loginPane = new VBox(10);
-		loginPane.setPadding(new Insets(0,0,0,20));
+
+		loginPane.setPadding(new Insets(10, 10, 10, 10));
+		loginPane.setBorder(
+				new Border(
+						new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)
+				)
+		);
+		loginPane.setLayoutX(20);
 
 		//geef naam
 		naamBox = new HBox(5);
@@ -158,31 +166,43 @@ public class GamblerView {
 	}
 
 	public void genereerGokPane(SpelModel model){
-		gokPane = new VBox(10);
-		gokPane.setLayoutY(150);
-		gokPane.setLayoutX(20);
+		if(gokPane == null){
+			gokPane = new VBox(10);
+			gokPane.setLayoutY(150);
+			gokPane.setLayoutX(20);
+		}
+
+		gokPane.setPadding(new Insets(10, 10, 10, 10));
+		gokPane.setBorder(
+				new Border(
+						new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)
+				)
+		);
+
+		gokPane.getChildren().clear();
 
 		//titel
 		gokStratLbl = new Label("Kies een gok strategie");
 		gokPane.getChildren().add(gokStratLbl);
 
-		//gok strategies
 		gokStratGrp = new ToggleGroup();
 		gokStratRdbs = new ArrayList<>();
-		for(GokEnum gok : GokEnum.values()){
+		for(GokEnum gok : SettingsDB.getInstance().getBeschikbareGokken()){
 			HBox gokBox = new HBox(20);
 
 			//radio button
 			RadioButton radioButton = new RadioButton(gok.getOmschrijving());
 			radioButton.setToggleGroup(gokStratGrp);
 			radioButton.setOnAction(e -> {
-				model.getSpelState().onKiesGok(gok);
+				SpelModel.getInstance().getSpelState().onKiesGok(gok);
 			});
 			radioButton.setMinWidth(340);
 			gokStratRdbs.add(radioButton);
 
 			//winst factor lbl
-			Label winstFacLbl = new Label("mogelijk winst is " + gok.getWinstfactor() + " x je inzet");
+			Label winstFacLbl = new Label(
+					"mogelijk winst is " + SettingsDB.getInstance().getWinstFactors().get(gok) + " x je inzet"
+			);
 			winstFacLbl.setAlignment(Pos.TOP_RIGHT);
 
 			gokBox.getChildren().addAll(radioButton, winstFacLbl);
@@ -200,9 +220,10 @@ public class GamblerView {
 		gokPane.getChildren().add(gokBevestigBtn);
 	}
 
-	public void genereerWerpPane(SpelModel model){
+
+	private void genereerWerpPane(SpelModel model){
 		werpPane = new VBox(10);
-		werpPane.setLayoutY(320);
+		werpPane.setLayoutY(350);
 		werpPane.setLayoutX(20);
 
 		//werp knop

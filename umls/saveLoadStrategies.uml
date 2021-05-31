@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>model.database.saveLoadStrategies</OriginalElement>
+  <nodes>
+    <node x="466.01984126984127" y="44.5">model.database.saveLoadStrategies.SaveLoadStrategy</node>
+    <node x="316.5" y="228.0">model.database.saveLoadStrategies.SpelerExcelSaveLoad</node>
+    <node x="411.5" y="788.0">model.database.saveLoadStrategies.SaveLoadFactory</node>
+    <node x="66.5" y="217.0">model.database.saveLoadStrategies.SpelerTekstSaveLoad</node>
+    <node x="0.0" y="0.0">model.database.saveLoadStrategies.TekstSaveLoadTemplate</node>
+    <node x="260.10317460317464" y="392.0">model.database.saveLoadStrategies.SaveLoadEnum</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.database.saveLoadStrategies.SaveLoadFactory" target="model.database.saveLoadStrategies.SaveLoadEnum" relationship="DEPENDENCY">
+      <point x="-75.75" y="-39.5" />
+      <point x="487.25" y="762.0" />
+      <point x="456.10317460317464" y="762.0" />
+      <point x="0.0" y="172.0" />
+    </edge>
+    <edge source="model.database.saveLoadStrategies.SpelerTekstSaveLoad" target="model.database.saveLoadStrategies.TekstSaveLoadTemplate" relationship="GENERALIZATION">
+      <point x="-57.5" y="-61.5" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="model.database.saveLoadStrategies.SaveLoadEnum" target="model.database.saveLoadStrategies.SaveLoadStrategy" relationship="DEPENDENCY">
+      <point x="147.0" y="-172.0" />
+      <point x="603.1031746031747" y="366.0" />
+      <point x="600.8373015873016" y="366.0" />
+      <point x="600.8373015873016" y="197.0" />
+      <point x="630.5873015873016" y="197.0" />
+      <point x="630.5873015873016" y="187.0" />
+      <point x="667.686507936508" y="187.0" />
+      <point x="80.66666666666669" y="39.0" />
+    </edge>
+    <edge source="model.database.saveLoadStrategies.SaveLoadEnum" target="model.database.saveLoadStrategies.SaveLoadStrategy" relationship="TO_ONE">
+      <point x="49.0" y="-172.0" />
+      <point x="505.10317460317464" y="366.0" />
+      <point x="569.0" y="366.0" />
+      <point x="569.0" y="197.0" />
+      <point x="587.0198412698413" y="197.0" />
+      <point x="1.4210854715202004E-14" y="39.0" />
+    </edge>
+    <edge source="model.database.saveLoadStrategies.SaveLoadFactory" target="model.database.saveLoadStrategies.SaveLoadStrategy" relationship="DEPENDENCY">
+      <point x="75.75" y="-39.5" />
+      <point x="638.75" y="762.0" />
+      <point x="662.6031746031747" y="762.0" />
+      <point x="662.6031746031747" y="197.0" />
+      <point x="630.5873015873016" y="197.0" />
+      <point x="630.5873015873016" y="187.0" />
+      <point x="667.686507936508" y="187.0" />
+      <point x="80.66666666666669" y="39.0" />
+    </edge>
+    <edge source="model.database.saveLoadStrategies.SpelerExcelSaveLoad" target="model.database.saveLoadStrategies.SaveLoadStrategy" relationship="REALIZATION">
+      <point x="0.0" y="-50.5" />
+      <point x="437.5" y="187.0" />
+      <point x="506.3531746031746" y="187.0" />
+      <point x="-80.66666666666667" y="39.0" />
+    </edge>
+    <edge source="model.database.saveLoadStrategies.SaveLoadEnum" target="model.database.saveLoadStrategies.SpelerTekstSaveLoad" relationship="DEPENDENCY">
+      <point x="-147.0" y="-172.0" />
+      <point x="309.10317460317464" y="366.0" />
+      <point x="181.5" y="366.0" />
+      <point x="0.0" y="61.5" />
+    </edge>
+    <edge source="model.database.saveLoadStrategies.SaveLoadEnum" target="model.database.saveLoadStrategies.SpelerExcelSaveLoad" relationship="DEPENDENCY">
+      <point x="-49.0" y="-172.0" />
+      <point x="407.10317460317464" y="366.0" />
+      <point x="437.5" y="366.0" />
+      <point x="0.0" y="50.5" />
+    </edge>
+    <edge source="model.database.saveLoadStrategies.SpelerTekstSaveLoad" target="model.database.saveLoadStrategies.SaveLoadStrategy" relationship="REALIZATION">
+      <point x="57.5" y="-61.5" />
+      <point x="239.0" y="197.0" />
+      <point x="437.5" y="197.0" />
+      <point x="437.5" y="187.0" />
+      <point x="506.3531746031746" y="187.0" />
+      <point x="-80.66666666666667" y="39.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.7316798196166855" showDependencies="true" x="357.5" y="433.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

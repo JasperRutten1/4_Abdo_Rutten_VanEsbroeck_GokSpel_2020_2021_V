@@ -6,6 +6,9 @@ import model.SpelModel;
 import model.gokStrategy.GokEnum;
 import model.gokStrategy.GokFactory;
 
+/**
+ * @author Jasper
+ */
 public class SpelGestartState implements SpelState{
     private SpelModel model;
 

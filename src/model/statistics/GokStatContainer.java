@@ -5,6 +5,9 @@ import model.gokStrategy.GokEnum;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Jasper
+ */
 public class GokStatContainer {
     private Map<GokEnum, GokStatistic> stats;
 

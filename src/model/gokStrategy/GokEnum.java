@@ -1,34 +1,37 @@
 package model.gokStrategy;
 
+/**
+ * @author Jordy
+ */
 public enum GokEnum{
     STRAT_SOM21(
             Som21.class,
-            "de som van de ogen van alle worpen samen is 21",
+            "Som van alle ogen is samen 21",
             5,
             "Som 21"
     ),
     STRAT_EVEN_OGEN(
             EvenOgen.class,
-            "het aantal ogen bij elke worp is een even getal",
+            "Aantal ogen bij elke worp is een even getal",
             4,
             "Even ogen"
     ),
     STRAT_LAATSTE_WORP_HOGER_DAN(
             LaatsteWorpHogerDanVorige.class,
-            "het aantal ogen is bij elke worp hoger dan de vorige worp",
+            "Ogen bij elke worp is hoger dan de vorige",
             10,
             "Hoger dan"
     );
 
     private final Class<? extends GokStrategy> clazz;
     private final String omschrijving;
-    private final double winstfactor;
+    private final double defaultWinstfactor;
     private final String naam;
 
     GokEnum(Class<? extends GokStrategy> clazz, String omschrijving, double winstfactor, String naam){
         this.clazz = clazz;
         this.omschrijving = omschrijving;
-        this.winstfactor = winstfactor;
+        this.defaultWinstfactor = winstfactor;
         this.naam = naam;
     }
 
@@ -40,8 +43,8 @@ public enum GokEnum{
         return omschrijving;
     }
 
-    public double getWinstfactor() {
-        return winstfactor;
+    public double getDefaultWinstfactor() {
+        return defaultWinstfactor;
     }
 
     public String getNaam() {

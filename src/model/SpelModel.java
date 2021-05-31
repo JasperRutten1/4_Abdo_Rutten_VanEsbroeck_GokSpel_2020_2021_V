@@ -3,13 +3,13 @@ package model;
 import javafx.scene.control.TextField;
 import lombok.Getter;
 import lombok.Setter;
+import model.database.SettingsDB;
 import model.database.SpelersDB;
 import model.gokStrategy.GokStrategy;
 import model.observer.SpelEvent;
 import model.observer.SpelObserver;
 import model.spelState.*;
 import model.gokStrategy.GokEnum;
-import model.statistics.GokStatContainer;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -19,6 +19,8 @@ import java.util.*;
  * @author iedereen
  */
 public class SpelModel {
+    private static SpelModel uniqueInstancce;
+
     @Getter private SpelersDB spelersDB;
     private final Map<SpelEvent, List<SpelObserver>> observers;
 
@@ -154,7 +156,7 @@ public class SpelModel {
         //om afrondigsfouten te vermijden
         BigDecimal bdInzet = new BigDecimal(inzet, MathContext.DECIMAL64);
         BigDecimal bdSpelerSaldo = new BigDecimal(speler.getSaldo(), MathContext.DECIMAL64);
-        BigDecimal bdGokEnumFactor = new BigDecimal(gokEnum.getWinstfactor(), MathContext.DECIMAL64);
+        BigDecimal bdGokEnumFactor = new BigDecimal(SettingsDB.getInstance().getWinstFactors().get(gokEnum), MathContext.DECIMAL64);
         BigDecimal total;
         double doubleTotal;
 
@@ -189,5 +191,8 @@ public class SpelModel {
         notifyObservers(SpelEvent.RESTART);
     }
 
-
+    public static SpelModel getInstance() {
+        if(uniqueInstancce == null) uniqueInstancce = new SpelModel(SpelersDB.getInstance());
+        return uniqueInstancce;
+    }
 }

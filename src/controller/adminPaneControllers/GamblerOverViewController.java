@@ -4,6 +4,9 @@ import model.SpelModel;
 import model.observer.SpelEvent;
 import view.panels.GamblerOverviewPane;
 
+/**
+ * @author iedereen
+ */
 public class GamblerOverViewController {
     private SpelModel model;
 

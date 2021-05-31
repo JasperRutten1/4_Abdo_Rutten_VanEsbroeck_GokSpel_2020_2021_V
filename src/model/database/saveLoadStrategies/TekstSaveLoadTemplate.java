@@ -5,12 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * @author iedreen
+ */
 public abstract class TekstSaveLoadTemplate<K,V> {
-
-    /*
-    load
-     */
-
     public final Map<K,V> load(File file){
         Map<K, V> data = new HashMap<>();
         try {
@@ -33,10 +31,6 @@ public abstract class TekstSaveLoadTemplate<K,V> {
     protected abstract V generateValue(String[] args);
 
     protected abstract K generateKey(V value);
-
-    /*
-    save
-     */
 
     public final void save(Map<K, V> data, File file){
         StringBuilder sb = new StringBuilder();

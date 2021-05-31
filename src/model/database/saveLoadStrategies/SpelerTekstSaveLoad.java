@@ -2,6 +2,9 @@ package model.database.saveLoadStrategies;
 
 import model.Speler;
 
+/**
+ * @author iedereen
+ */
 public class SpelerTekstSaveLoad extends TekstSaveLoadTemplate<String,Speler> implements SaveLoadStrategy {
     @Override
     protected Speler generateValue(String[] args) {

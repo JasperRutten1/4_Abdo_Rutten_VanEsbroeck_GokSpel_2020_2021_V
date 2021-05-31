@@ -2,6 +2,9 @@ package model.gokStrategy;
 
 import java.util.List;
 
+/**
+ * @author Jordy
+ */
 public class EvenOgen implements GokStrategy{
     @Override
     public boolean kanWinnen(List<Integer> dobbelstenen) {

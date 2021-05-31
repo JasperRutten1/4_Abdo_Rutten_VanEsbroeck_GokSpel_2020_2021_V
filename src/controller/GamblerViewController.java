@@ -1,11 +1,13 @@
 package controller;
 
 import javafx.scene.paint.Color;
+import model.SpelModel;
 import model.observer.SpelEvent;
-import model.observer.SpelObserver;
 import view.GamblerView;
-import model.*;
 
+/**
+ * @author
+ */
 public class GamblerViewController {
     private SpelModel model;
 
@@ -52,6 +54,10 @@ public class GamblerViewController {
             view.refreshLoginFld("", false);
             view.refreshInzetFld(0, false);
             view.refreshStartBtn(false);
+        });
+
+        model.addObserver(SpelEvent.SETTING_UPDATE, m -> {
+            view.genereerGokPane(m);
         });
 
     }

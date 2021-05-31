@@ -2,6 +2,9 @@ package model.gokStrategy;
 
 import java.util.List;
 
+/**
+ * @author Jordy
+ */
 public class Som21 implements GokStrategy{
     final static int NBR_WORPEN = 4;
 

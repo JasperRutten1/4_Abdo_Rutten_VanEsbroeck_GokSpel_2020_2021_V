@@ -6,9 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.SpelModel;
 import view.panels.AdminMainPane;
 
+/**
+ * @author Iedereen
+ */
 public class AdminView {
 	private Stage stage = new Stage();
 	private AdminViewController controller;

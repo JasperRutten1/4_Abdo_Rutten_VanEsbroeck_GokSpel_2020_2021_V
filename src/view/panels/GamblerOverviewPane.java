@@ -12,6 +12,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.*;
 
+/**
+ * @author Iedereen
+ */
 public class GamblerOverviewPane extends GridPane{
 	private TableView<Speler> table;
 	private ObservableList<Speler> spelers;

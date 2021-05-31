@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>model.spelState</OriginalElement>
+  <nodes>
+    <node x="633.5" y="0.0">model.spelState.SpelState</node>
+    <node x="1006.0" y="216.0">model.spelState.SpelGestartState</node>
+    <node x="1240.0" y="216.0">model.spelState.WerpStateVastSaldo</node>
+    <node x="234.0" y="216.0">model.spelState.IngelogdeState</node>
+    <node x="764.0" y="216.0">model.spelState.NietIngelogdeState</node>
+    <node x="468.0" y="216.0">model.spelState.WerpStateSaldoVeranderbaar</node>
+    <node x="0.0" y="216.0">model.spelState.EindeSpelState</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.spelState.IngelogdeState" target="model.spelState.SpelState" relationship="REALIZATION">
+      <point x="0.0" y="-106.0" />
+      <point x="341.0" y="191.0" />
+      <point x="740.5" y="191.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="model.spelState.NietIngelogdeState" target="model.spelState.SpelState" relationship="REALIZATION">
+      <point x="0.0" y="-106.0" />
+      <point x="875.0" y="191.0" />
+      <point x="740.5" y="191.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="model.spelState.WerpStateVastSaldo" target="model.spelState.SpelState" relationship="REALIZATION">
+      <point x="0.0" y="-106.0" />
+      <point x="1353.5" y="191.0" />
+      <point x="740.5" y="191.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="model.spelState.WerpStateSaldoVeranderbaar" target="model.spelState.SpelState" relationship="REALIZATION">
+      <point x="0.0" y="-106.0" />
+      <point x="606.0" y="191.0" />
+      <point x="740.5" y="191.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="model.spelState.EindeSpelState" target="model.spelState.SpelState" relationship="REALIZATION">
+      <point x="0.0" y="-106.0" />
+      <point x="107.0" y="191.0" />
+      <point x="740.5" y="191.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+    <edge source="model.spelState.SpelGestartState" target="model.spelState.SpelState" relationship="REALIZATION">
+      <point x="0.0" y="-106.0" />
+      <point x="1113.0" y="191.0" />
+      <point x="740.5" y="191.0" />
+      <point x="0.0" y="83.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.7868190988567586" showDependencies="false" x="733.5" y="214.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

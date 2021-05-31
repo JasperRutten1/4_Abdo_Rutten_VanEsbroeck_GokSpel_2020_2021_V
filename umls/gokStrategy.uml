@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>model.gokStrategy</OriginalElement>
+  <nodes>
+    <node x="514.0" y="528.5">model.gokStrategy.EvenOgen</node>
+    <node x="0.0" y="664.0">model.gokStrategy.GokFactory</node>
+    <node x="260.0" y="411.0">model.gokStrategy.GokStrategy</node>
+    <node x="260.0" y="517.0">model.gokStrategy.Som21</node>
+    <node x="0.0" y="528.5">model.gokStrategy.LaatsteWorpHogerDanVorige</node>
+    <node x="0.0" y="0.0">model.gokStrategy.GokEnum</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.gokStrategy.EvenOgen" target="model.gokStrategy.GokStrategy" relationship="REALIZATION">
+      <point x="0.0" y="-39.5" />
+      <point x="631.0" y="492.0" />
+      <point x="377.0" y="492.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="model.gokStrategy.Som21" target="model.gokStrategy.GokStrategy" relationship="REALIZATION">
+      <point x="0.0" y="-51.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="model.gokStrategy.LaatsteWorpHogerDanVorige" target="model.gokStrategy.GokStrategy" relationship="REALIZATION">
+      <point x="0.0" y="-39.5" />
+      <point x="120.0" y="492.0" />
+      <point x="377.0" y="492.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.8505897771952818" showDependencies="false" x="374.0" y="371.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

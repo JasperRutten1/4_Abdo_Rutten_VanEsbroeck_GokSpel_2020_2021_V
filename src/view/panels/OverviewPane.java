@@ -8,14 +8,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import model.SpelModel;
+import model.database.SettingsDB;
+import model.database.SpelersDB;
 
+/**
+ * @author Iedereen
+ */
 public class OverviewPane extends VBox {
     private OverViewController controller;
 
     private Text gameCounterTxt;
     private String log;
     private Text logTxt;
-    private Button resertBtn;
+    private Button restartBtn;
+    private Button sluitendBtn;
 
     public OverviewPane(OverViewController controller){
         this.controller = controller;
@@ -38,19 +44,32 @@ public class OverviewPane extends VBox {
         scrollPane.setFitToHeight(true);
         scrollPane.setMinHeight(480);
 
-        //reset
-        this.resertBtn = new Button("Restart");
-        this.resertBtn.setDisable(true);
-        this.resertBtn.setOnAction(e -> controller.getModel().restart());
+        HBox h1 = new HBox(10);
 
-        this.getChildren().addAll(counterBox, scrollPane, resertBtn);
+        //reset
+        restartBtn = new Button("Restart");
+        restartBtn.setDisable(true);
+        restartBtn.setOnAction(e -> controller.getModel().restart());
+
+        //end
+        sluitendBtn = new Button("Afsluiten");
+        sluitendBtn.setDisable(true);
+        sluitendBtn.setOnAction(e -> {
+            SettingsDB.getInstance().save();
+            SpelersDB.getInstance().save();
+            System.exit(2);
+        });
+
+        h1.getChildren().setAll(restartBtn, sluitendBtn);
+        this.getChildren().addAll(counterBox, scrollPane, h1);
     }
 
     public void refresh(){
         this.logTxt.setText(log);
         SpelModel model = controller.getModel();
         gameCounterTxt.setText(model.getGameCounter() + "");
-        resertBtn.setDisable(!model.isSpelGedaan());
+        restartBtn.setDisable(!model.isSpelGedaan());
+        sluitendBtn.setDisable(!model.isSpelGedaan());
     }
 
     public void log(String message){

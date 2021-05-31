@@ -6,6 +6,9 @@ import model.SpelModel;
 import model.Speler;
 import model.gokStrategy.GokEnum;
 
+/**
+ * @author Jasper
+ */
 public class NietIngelogdeState implements SpelState{
     private SpelModel model;
 

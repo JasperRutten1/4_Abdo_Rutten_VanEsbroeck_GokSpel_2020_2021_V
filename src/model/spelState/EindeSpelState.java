@@ -5,6 +5,9 @@ import javafx.scene.control.TextField;
 import model.SpelModel;
 import model.gokStrategy.GokEnum;
 
+/**
+ * @author Jasper
+ */
 public class EindeSpelState implements SpelState{
     private SpelModel model;
 

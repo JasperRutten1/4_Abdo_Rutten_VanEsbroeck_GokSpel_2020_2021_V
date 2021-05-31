@@ -1,29 +1,21 @@
 package model.database;
 
-import model.*;
+import model.Speler;
 import model.database.saveLoadStrategies.SaveLoadEnum;
 import model.database.saveLoadStrategies.SaveLoadFactory;
-import model.database.saveLoadStrategies.SaveLoadStrategy;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import model.observer.*;
 /**
  * @author iedereen
  */
 public class SpelersDB {
+    private static SpelersDB uniqueInstance;
+
     private Map<String, Speler> spelers;
-    private SaveLoadStrategy saveLoad;
-    private File file;
 
-
-    public SpelersDB(SaveLoadEnum saveLoadEnum) {
+    public SpelersDB() {
         this.spelers = new HashMap<>();
-        this.saveLoad = SaveLoadFactory.getInstance(saveLoadEnum);
-        this.file = saveLoadEnum.getFile();
     }
 
     public Map<String, Speler> getSpelers() {
@@ -40,11 +32,18 @@ public class SpelersDB {
         spelers.remove(speler.getGebruiker());
     }
 
-    public void save(File file) {
-        saveLoad.save(this.spelers, file);
+    public void save() {
+        SaveLoadEnum saveLoadEnum = SettingsDB.getInstance().getSaveLoad();
+        SaveLoadFactory.getInstance(saveLoadEnum).save(this.spelers, saveLoadEnum.getFile());
     }
 
     public void load() {
-        this.spelers = saveLoad.load(file);
+        SaveLoadEnum saveLoadEnum = SettingsDB.getInstance().getSaveLoad();
+        this.spelers = SaveLoadFactory.getInstance(saveLoadEnum).load(saveLoadEnum.getFile());
+    }
+
+    public static SpelersDB getInstance() {
+        if(uniqueInstance == null) uniqueInstance = new SpelersDB();
+        return uniqueInstance;
     }
 }

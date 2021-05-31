@@ -5,6 +5,9 @@ import model.Speler;
 import model.observer.SpelEvent;
 import view.panels.OverviewPane;
 
+/**
+ * @author Jordy
+ */
 public class OverViewController {
     private SpelModel model;
 

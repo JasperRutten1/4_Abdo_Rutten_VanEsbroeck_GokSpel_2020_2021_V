@@ -1,10 +1,10 @@
 package model.gokStrategy;
 
-import model.gokStrategy.GokEnum;
-import model.gokStrategy.GokStrategy;
-
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * @author Jordy
+ */
 public class GokFactory {
     public static GokStrategy getInstance(GokEnum gokEnum){
         try {

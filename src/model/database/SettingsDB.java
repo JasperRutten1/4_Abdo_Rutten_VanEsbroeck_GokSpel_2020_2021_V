@@ -1,7 +1,9 @@
 package model.database;
 
+import model.SpelModel;
 import model.database.saveLoadStrategies.SaveLoadEnum;
 import model.gokStrategy.GokEnum;
+import model.observer.SpelEvent;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,7 +11,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * @author Jasper
+ */
 public class SettingsDB extends Properties {
+    private static SettingsDB uniqueInstance;
+
     private SaveLoadEnum saveLoad;
     private Map<GokEnum, Double> winstFactors;
     private List<GokEnum> beschikbareGokken;
@@ -35,11 +42,27 @@ public class SettingsDB extends Properties {
     }
 
     /*
-
+    getters
      */
 
     public Map<GokEnum, Double> getWinstFactors() {
         return winstFactors;
+    }
+
+    public List<GokEnum> getBeschikbareGokken() {
+        return beschikbareGokken;
+    }
+
+    public SaveLoadEnum getSaveLoad() {
+        return saveLoad;
+    }
+
+    /*
+    setter
+     */
+
+    public void setSaveLoad(SaveLoadEnum saveLoad) {
+        this.saveLoad = saveLoad;
     }
 
     public void save(){
@@ -57,6 +80,7 @@ public class SettingsDB extends Properties {
         catch(IOException ex){
             ex.printStackTrace();
         }
+        SpelModel.getInstance().notifyObservers(SpelEvent.SETTING_UPDATE);
     }
 
     private void loadSaveLoad(){
@@ -72,7 +96,7 @@ public class SettingsDB extends Properties {
         for(GokEnum gok : GokEnum.values()){
             String value_string = getProperty(gok.getNaam()  + "_winst");
             if(value_string == null){
-                winstFactors.put(gok, 2.0);
+                winstFactors.put(gok, gok.getDefaultWinstfactor());
             }
             else{
                 double value;
@@ -80,7 +104,7 @@ public class SettingsDB extends Properties {
                         value = Double.parseDouble(value_string);
                     }
                     catch(NumberFormatException ex){
-                        value = 2.0;
+                        value = gok.getDefaultWinstfactor();
                     }
                     winstFactors.put(gok, value);
             }
@@ -98,7 +122,12 @@ public class SettingsDB extends Properties {
         if(values == null){
             beschikbareGokken.addAll(Arrays.asList(GokEnum.values()));
         }
-
+        else{
+            for(String gokString : values.split(",")){
+                GokEnum gokEnum = GokEnum.getEnumFromName(gokString);
+                if(gokEnum != null) beschikbareGokken.add(gokEnum);
+            }
+        }
     }
 
     private void writeSaveLoad(){
@@ -111,7 +140,6 @@ public class SettingsDB extends Properties {
         }
     }
 
-
     private void writeBeschikbareGokken(){
         StringBuilder sb = new StringBuilder();
         for(int i = 0 ; i < beschikbareGokken.size() ; i++){
@@ -122,5 +150,10 @@ public class SettingsDB extends Properties {
             }
         }
         setProperty("beschikbareGokken", sb.toString());
+    }
+
+    public static SettingsDB getInstance() {
+        if(uniqueInstance == null) uniqueInstance = new SettingsDB();
+        return uniqueInstance;
     }
 }

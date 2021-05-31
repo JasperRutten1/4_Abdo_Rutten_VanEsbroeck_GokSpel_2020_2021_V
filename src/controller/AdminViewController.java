@@ -7,6 +7,9 @@ import controller.adminPaneControllers.StatisticsController;
 import model.SpelModel;
 import view.*;
 
+/**
+ * @author iedereen
+ */
 public class AdminViewController {
     private SpelModel model;
 
