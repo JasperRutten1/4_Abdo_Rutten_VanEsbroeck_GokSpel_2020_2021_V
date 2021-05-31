@@ -1,10 +1,10 @@
 package controller;
 
 import controller.adminPaneControllers.GamblerOverViewController;
+import controller.adminPaneControllers.InstellingController;
 import controller.adminPaneControllers.OverViewController;
 import controller.adminPaneControllers.StatisticsController;
 import model.SpelModel;
-import model.observer.SpelObserver;
 import view.*;
 
 public class AdminViewController {
@@ -15,6 +15,7 @@ public class AdminViewController {
     private GamblerOverViewController gamblerOverViewController;
     private OverViewController overViewController;
     private StatisticsController statisticsController;
+    private InstellingController instellingController;
 
 
     public AdminViewController(SpelModel model){
@@ -22,6 +23,7 @@ public class AdminViewController {
         this.gamblerOverViewController = new GamblerOverViewController(model);
         this.overViewController = new OverViewController(model);
         this.statisticsController = new StatisticsController(model);
+        this.instellingController = new InstellingController(model);
     }
 
     /*
@@ -46,6 +48,7 @@ public class AdminViewController {
         return statisticsController;
     }
 
+    public InstellingController getInstellingController() {return instellingController;}
     // setter
 
     public void setAdminView(AdminView adminView) {

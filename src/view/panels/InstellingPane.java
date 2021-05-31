@@ -1,18 +1,25 @@
 package view.panels;
 
-import controller.InstellingController;
+
+import controller.adminPaneControllers.InstellingController;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
+import model.database.SettingsDB;
 
 public class InstellingPane extends VBox {
-    private InstellingController controller;
+    private InstellingController instellingController;
+    private SettingsDB settingsDB;
 
-    public InstellingPane(InstellingController controller){
-        this.controller = controller;
-        controller.setView(this);
+
+    private Button saveBtn;
+
+    public InstellingPane(InstellingController instellingController){
+        this.instellingController = instellingController;
+        instellingController.setView(this);
 
         this.setPadding(new Insets(5,5,5,5));
         this.setSpacing(10);
@@ -32,5 +39,16 @@ public class InstellingPane extends VBox {
         RadioButton rdExcel = new RadioButton("Excel");
         rdExcel.setToggleGroup(tg);
         v2.getChildren().addAll(rdTekst,rdExcel);
+
+        //save
+        this.saveBtn = new Button("Save");
+        this.saveBtn.setOnAction(e -> {
+
+           settingsDB.save();
+
+        }
+        );
+        this.getChildren().addAll(v,l,v2,saveBtn);
+
     }
 }

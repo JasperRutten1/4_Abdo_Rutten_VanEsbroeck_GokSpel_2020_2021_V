@@ -47,4 +47,11 @@ public enum GokEnum{
     public String getNaam() {
         return naam;
     }
+
+    public static GokEnum getEnumFromName(String naam){
+        for(GokEnum gok : values()){
+            if(gok.naam.equals(naam)) return gok;
+        }
+        return null;
+    }
 }

@@ -14,11 +14,16 @@ public class AdminMainPane extends BorderPane {
 	    TabPane tabPane = new TabPane();
 	    OverviewPane overviewPane = new OverviewPane(controller.getOverViewController());
         Tab spelVerloopTab = new Tab("Spelverloop", overviewPane);
+
         GamblerOverviewPane gamblerOverviewPane = new GamblerOverviewPane(controller.getGamblerOverController());
         Tab spelerTab = new Tab("Spelers",gamblerOverviewPane);
-        Tab instellingTab = new Tab("Instellingen");
+
+        InstellingPane instellingPane = new InstellingPane(controller.getInstellingController());
+        Tab instellingTab = new Tab("Instellingen", instellingPane);
+
         StatisticsPane statisticsPane = new StatisticsPane(controller.getStatisticsController());
         Tab statistiekTab = new Tab("Statistieken", statisticsPane);
+
         tabPane.getTabs().add(spelVerloopTab);
         tabPane.getTabs().add(spelerTab);
         tabPane.getTabs().add(statistiekTab);

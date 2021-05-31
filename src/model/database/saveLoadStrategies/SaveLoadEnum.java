@@ -34,4 +34,15 @@ public enum SaveLoadEnum {
             }
         }
     }
+
+    public String getClassName(){
+        return clazz.getName();
+    }
+
+    public static SaveLoadEnum getEnumFromName(String clazzName){
+        for(SaveLoadEnum saveLoad : values()){
+            if(saveLoad.clazz.getName().equals(clazzName)) return saveLoad;
+        }
+        return null;
+    }
 }
