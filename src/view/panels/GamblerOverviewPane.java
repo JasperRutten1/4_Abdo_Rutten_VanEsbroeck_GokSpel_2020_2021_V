@@ -1,8 +1,7 @@
 package view.panels;
 
 
-import controller.AdminViewController;
-import controller.GamblerViewController;
+import controller.adminPaneControllers.GamblerOverViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -12,16 +11,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.*;
-import model.database.SpelersDB;
 
 public class GamblerOverviewPane extends GridPane{
 	private TableView<Speler> table;
 	private ObservableList<Speler> spelers;
-	private AdminViewController controller;
+	private GamblerOverViewController controller;
 	
 	
-	public GamblerOverviewPane(AdminViewController controller) {
+	public GamblerOverviewPane(GamblerOverViewController controller) {
 		this.controller = controller;
+		controller.setView(this);
+
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);        

@@ -28,7 +28,7 @@ public class GamblerViewController {
         });
 
         model.addObserver(SpelEvent.LOGIN, m -> {
-            view.refreshLoginFld(m.getSpeler(), m.isSpelBezig());
+            view.refreshLoginFld(m.getSpeler().getGebruiker(), m.isSpelBezig());
             view.refreshSaldoLbl(m.getSpeler().getSaldo(), true);
         });
 
@@ -38,13 +38,20 @@ public class GamblerViewController {
 
         model.addObserver(SpelEvent.START, m -> {
             view.refreshStartBtn(m.isSpelBezig());
+            view.refreshGokStrats(model.isSpelBezig() && !model.isStratGekozen());
         });
 
         model.addObserver(SpelEvent.CONFIRM_GOK, m -> {
-            view.refreshGokStrats(
-                    model,
-                    model.isSpelBezig() && !model.isStratGekozen()
-            );
+            view.refreshGokStrats(model.isSpelBezig() && !model.isStratGekozen());
+        });
+
+        model.addObserver(SpelEvent.RESTART, m -> {
+            view.hideResult();
+            view.refreshWorpenBox(m);
+            view.refreshGokStrats(false);
+            view.refreshLoginFld("", false);
+            view.refreshInzetFld(0, false);
+            view.refreshStartBtn(false);
         });
 
     }

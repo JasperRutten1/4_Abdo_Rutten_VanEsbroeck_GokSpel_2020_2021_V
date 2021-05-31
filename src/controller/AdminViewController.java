@@ -1,19 +1,27 @@
 package controller;
 
+import controller.adminPaneControllers.GamblerOverViewController;
+import controller.adminPaneControllers.OverViewController;
+import controller.adminPaneControllers.StatisticsController;
 import model.SpelModel;
 import model.observer.SpelObserver;
 import view.*;
-import view.panels.GamblerOverviewPane;
 
-public class AdminViewController implements SpelObserver {
+public class AdminViewController {
     private SpelModel model;
 
     private AdminView adminView;
-    private GamblerOverviewPane gamblerOverviewPane;
+
+    private GamblerOverViewController gamblerOverViewController;
+    private OverViewController overViewController;
+    private StatisticsController statisticsController;
 
 
     public AdminViewController(SpelModel model){
         this.model = model;
+        this.gamblerOverViewController = new GamblerOverViewController(model);
+        this.overViewController = new OverViewController(model);
+        this.statisticsController = new StatisticsController(model);
     }
 
     /*
@@ -26,18 +34,21 @@ public class AdminViewController implements SpelObserver {
         return model;
     }
 
-    /*
-    --------------------------------------------------
-    setters
-    --------------------------------------------------
-     */
+    public GamblerOverViewController getGamblerOverController() {
+        return gamblerOverViewController;
+    }
+
+    public OverViewController getOverViewController() {
+        return overViewController;
+    }
+
+    public StatisticsController getStatisticsController() {
+        return statisticsController;
+    }
+
+    // setter
 
     public void setAdminView(AdminView adminView) {
         this.adminView = adminView;
-    }
-
-    @Override
-    public void update(SpelModel spelModel) {
-
     }
 }

@@ -9,9 +9,15 @@ import model.observer.SpelEvent;
 import model.observer.SpelObserver;
 import model.spelState.*;
 import model.gokStrategy.GokEnum;
+import model.statistics.GokStatContainer;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.*;
 
+/**
+ * @author iedereen
+ */
 public class SpelModel {
     @Getter private SpelersDB spelersDB;
     private final Map<SpelEvent, List<SpelObserver>> observers;
@@ -28,12 +34,13 @@ public class SpelModel {
             werpVerander, eindeSpelState;
 
     @Getter private List<Integer> worpen;
-    @Getter @Setter double origineelInzet;
+    @Getter @Setter private double origineelInzet;
+    @Getter private int gameCounter;
 
     public SpelModel(SpelersDB spelersDB){
         this.spelersDB = spelersDB;
         this.worpen = new ArrayList<>();
-        this.spelBezig = false;
+        this.gameCounter = 1;
 
         observers = new HashMap<>();
         for(SpelEvent event : SpelEvent.values()){
@@ -139,6 +146,47 @@ public class SpelModel {
     public void gooiVolgendeDobbelsteen(){
         worpen.add(new Random().nextInt(6) + 1);
         notifyObservers(SpelEvent.WERP);
+    }
+
+    public void eindSpel(){
+        this.spelGedaan = true;
+
+        //om afrondigsfouten te vermijden
+        BigDecimal bdInzet = new BigDecimal(inzet, MathContext.DECIMAL64);
+        BigDecimal bdSpelerSaldo = new BigDecimal(speler.getSaldo(), MathContext.DECIMAL64);
+        BigDecimal bdGokEnumFactor = new BigDecimal(gokEnum.getWinstfactor(), MathContext.DECIMAL64);
+        BigDecimal total;
+        double doubleTotal;
+
+
+        if(gokStrategy.kanWinnen(this.worpen)){
+            total = bdSpelerSaldo.add(bdInzet.multiply(bdGokEnumFactor));
+            doubleTotal = total.doubleValue();
+            speler.setSaldo(doubleTotal);
+        }
+        else{
+            total = bdSpelerSaldo.subtract(bdInzet);
+            doubleTotal = total.doubleValue();
+            speler.setSaldo(doubleTotal);
+        }
+        notifyObservers(SpelEvent.SPEL_GEDAAN);
+    }
+
+    public void restart(){
+        this.gokEnum = null;
+        this.speler = null;
+        this.inzet = 0;
+        this.origineelInzet = 0;
+        this.gokStrategy = null;
+        this.spelBezig = false;
+        this.spelGedaan = false;
+        this.stratGekozen = false;
+        this.worpen = new ArrayList<>();
+        
+        this.gameCounter++;
+
+        this.spelState = this.nietIngelogdState;
+        notifyObservers(SpelEvent.RESTART);
     }
 
 

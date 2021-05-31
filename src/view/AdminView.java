@@ -22,7 +22,7 @@ public class AdminView {
 		stage.setY(20);
 		Group root = new Group();
 		Scene scene = new Scene(root, 600, 600);
-		BorderPane borderPane = new AdminMainPane();
+		BorderPane borderPane = new AdminMainPane(controller);
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 		root.getChildren().add(borderPane);
